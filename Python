@@ -1,0 +1,63 @@
+#instalação das dependências
+!pip install rich
+
+#importando as bibliotecas 
+from rich.console import Console
+from time import sleep
+
+
+#Resumindo o comando
+c = Console()
+log = c.log
+
+#Código para caso não encontre o número que o cliente digitou
+def check(entrada):
+  contador = 0
+  lista = []
+  for num in entrada:
+    if num in dicio: 
+      contador += 1
+      lista.append(num)
+    else:
+      print('Não encontrei seu pedido :/')
+  return lista, contador
+
+#Exibindo em tela o pedido do cliente, caso escolha uma ou mais opções e exiba os nomes em tela
+def verifica(lista, contador):
+  if contador == 1:
+    answer = f'Seu pedido é: {dicio[lista[0]]} Deseja confirmar?'
+    print(answer)
+  else:
+    pedido  = []
+    while True:
+      contador = contador - 1
+      print(contador)
+      pedido.append(dicio[lista[contador]])
+      if contador == 0:
+        break
+    answer = f'''Seu pedido é:
+    {pedido} 
+    Deseja confirmar?'''
+    print(answer)
+
+  
+  #O que será exibido em tela iniciamente ao cliente
+
+with c.status("Bem-vindo à loja de bolos da Ana", spinner="monkey"):
+    sleep(4)
+
+c.print('''
+[bold blue] Faça seu pedido  
+
+[green underline] 1 - Broa de Fubá 
+
+[green underline] 2 - Bolo Formigueiro
+
+[green underline] 3 - Bolo de Amora 
+
+''')
+entrada = c.input("[bold blue] Digite o(s) número(s) da opçã(o/ões) que deseja: ")
+dicio = {'1':'Broa de Fubá', '2':'Bolo Formigueiro', '3':'Bolo de Amora'}
+
+lista, contador = check(entrada)
+verifica(lista, contador)
